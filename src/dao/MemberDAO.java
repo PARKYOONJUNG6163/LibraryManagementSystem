@@ -25,7 +25,7 @@ public class MemberDAO {
 	private void connectDB() {
 		this.jdbcUrl = "jdbc:mysql://localhost:3306/library";
 		this.dbId = "root";
-		this.dbPass = "weak";
+		this.dbPass = "";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -53,7 +53,7 @@ public class MemberDAO {
 			}
 	}
 
-	// µµ¼­°ü¿¡ °¡ÀÔÇÑ È¸¿ø ¸®½ºÆ®
+	// ë„ì„œê´€ì— ê°€ì…í•œ íšŒì› ë¦¬ìŠ¤íŠ¸
 	public List<Member> getMemberList() {
 		connectDB();
 		String sql = "SELECT * FROM Member";
@@ -80,11 +80,11 @@ public class MemberDAO {
 		return member_list;
 	}
 	
-	// È¸¿øÁ¤º¸ »èÁ¦
+	// íšŒì›ì •ë³´ ì‚­ì œ
 		public boolean deleteMember(String id) {
 			connectDB();
 			String sql = "DELETE FROM member WHERE id = ?";
-			boolean success = true; // »èÁ¦ ¼º°ø ¿©ºÎ
+			boolean success = true; // ì‚­ì œ ì„±ê³µ ì—¬ë¶€
 
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -99,7 +99,7 @@ public class MemberDAO {
 			return success;
 		}
 		
-	// ResultSet¿¡ ´ëÇÑ Member °´Ã¼¸¦ ¸¸µé¾î¼­ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+	// ResultSetì— ëŒ€í•œ Member ê°ì²´ë¥¼ ë§Œë“¤ì–´ì„œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 	private Member createMember(ResultSet rs) throws SQLException {
 		Member member = new Member();
 		member.setId(rs.getString("id"));
