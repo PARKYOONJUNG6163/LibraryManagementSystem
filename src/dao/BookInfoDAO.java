@@ -25,7 +25,7 @@ public class BookInfoDAO {
 	private void connectDB() {
 		this.jdbcUrl = "jdbc:mysql://localhost:3306/library";
 		this.dbId = "root";
-		this.dbPass = "weak";
+		this.dbPass = "";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -88,7 +88,7 @@ public class BookInfoDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				if (rs.getString("Isbn").equals(isbn)) { // ÇĞÁ¡ Á¤º¸°¡ Á¸ÀçÇÏ¸é
+				if (rs.getString("Isbn").equals(isbn)) { // í•™ì  ì •ë³´ê°€ ì¡´ì¬í•˜ë©´
 					return false;
 				}
 			}
@@ -99,7 +99,7 @@ public class BookInfoDAO {
 		return true;
 	}
 
-	// ¼öÁ¤ÇÏ·Á´Â µµ¼­ °´Ã¼ °¡Á®¿À±â
+	// ìˆ˜ì •í•˜ë ¤ëŠ” ë„ì„œ ê°ì²´ ê°€ì ¸ì˜¤ê¸°
 	public Book getBook(String isbn) {
 		connectDB();
 		String sql = "SELECT * FROM BookInfo WHERE Isbn = ?";
@@ -125,7 +125,7 @@ public class BookInfoDAO {
 		return book;
 	}
 
-	// µµ¼­°ü¿¡ µî·ÏµÈ µµ¼­ ¸®½ºÆ®
+	// ë„ì„œê´€ì— ë“±ë¡ëœ ë„ì„œ ë¦¬ìŠ¤íŠ¸
 	public List<Book> getBookList() {
 		connectDB();
 		String sql = "SELECT * FROM BookInfo";
@@ -152,7 +152,7 @@ public class BookInfoDAO {
 		return book_list;
 	}
 
-	// ResultSet¿¡ ´ëÇÑ Book °´Ã¼¸¦ ¸¸µé¾î¼­ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+	// ResultSetì— ëŒ€í•œ Book ê°ì²´ë¥¼ ë§Œë“¤ì–´ì„œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 	private Book createBook(ResultSet rs) throws SQLException {
 		Book book = new Book();
 
@@ -165,13 +165,13 @@ public class BookInfoDAO {
 		return book;
 	}
 
-	// µµ¼­Á¤º¸ ¼öÁ¤
+	// ë„ì„œì •ë³´ ìˆ˜ì •
 	public boolean modifyBookInfo(String isbn, int category, String name, String author, String publisher,
 			String publishedDate) {
 		connectDB();
 		String sql = "UPDATE bookInfo SET categoryKey = ?, bookName = ?, author = ?, publisher = ?, publishedDate = ? "
 				+ "WHERE isbn = ?";
-		boolean success = true; // ¼öÁ¤ ¼º°ø ¿©ºÎ
+		boolean success = true; // ìˆ˜ì • ì„±ê³µ ì—¬ë¶€
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -190,11 +190,11 @@ public class BookInfoDAO {
 		return success;
 	}
 
-	// µµ¼­Á¤º¸ »èÁ¦
+	// ë„ì„œì •ë³´ ì‚­ì œ
 	public boolean deleteBookInfo(String isbn) {
 		connectDB();
 		String sql = "DELETE FROM bookInfo WHERE isbn = ?";
-		boolean success = true; // »èÁ¦ ¼º°ø ¿©ºÎ
+		boolean success = true; // ì‚­ì œ ì„±ê³µ ì—¬ë¶€
 
 		try {
 			pstmt = conn.prepareStatement(sql);
