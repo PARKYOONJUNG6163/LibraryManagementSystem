@@ -25,7 +25,7 @@ public class RentDAO {
 	private void connectDB() {
 		this.jdbcUrl = "jdbc:mysql://localhost:3306/library";
 		this.dbId = "root";
-		this.dbPass = "weak";
+		this.dbPass = "";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -53,7 +53,7 @@ public class RentDAO {
 			}
 	}
 	
-	// ´ë¿© ¸®½ºÆ® ¹İÈ¯
+	// ëŒ€ì—¬ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
 	public List<Rent> getRentList() {
 		connectDB();
 		String sql = "SELECT * FROM rent A LEFT OUTER JOIN book B USING(bookNo)";
@@ -80,7 +80,7 @@ public class RentDAO {
 		return rent_list;
 	}
 
-	// ResultSet¿¡ ´ëÇÑ Member °´Ã¼¸¦ ¸¸µé¾î¼­ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+	// ResultSetì— ëŒ€í•œ Member ê°ì²´ë¥¼ ë§Œë“¤ì–´ì„œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 	private Rent createRent(ResultSet rs) throws SQLException {
 		Rent rent = new Rent();
 		rent.setRentNo(rs.getInt("rentNo"));
